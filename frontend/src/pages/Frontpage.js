@@ -41,8 +41,7 @@ export default function Frontpage() {
                 <div class="entry">
                   <div id="slideshow_container"></div>
                   <p id="knowledge_text">
-                    On this page you will find most when it commes to the Lore
-                    and information related to Grimgar and its Universe.
+                    This is the frontpage!
                   </p>
                 </div>
               </div>
