@@ -25,8 +25,26 @@ SECRET_KEY = 't*7o-am1%w^qd-j%dqr#4&zu1-8+4!vqqst%fy(i0f6rvujog^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = []
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATIC_ROOT = 'static' 
+STATIC_URL = '/static/'
+
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend') 
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'static'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "")
+MEDIA_URL = ""
 
 
 # Application definition
@@ -41,6 +59,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'rest_framework',
     "frontend.apps.FrontendConfig",
+    "grimgar_web"
 ]
 
 MIDDLEWARE = [
@@ -113,15 +132,3 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "")
-MEDIA_URL = ""
