@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
+  "proxy": "http://localhost:8000",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -9,7 +10,11 @@
   },
   "scripts": {
     "dev": "cd frontend && webpack --mode development --watch",
-    "build": "cd frontend && webpack --mode production"
+    "build_priv": "cd frontend && webpack --mode production",
+    "start": "cd frontend && react-scripts start",
+    "build": "cd frontend && react-scripts build",
+    "test": "cd frontend && react-scripts test",
+    "eject": "cd frontend && react-scripts eject"
   },
   "keywords": [],
   "author": "",
