@@ -1,8 +1,8 @@
+from django.db import models
 from rest_framework import serializers
-from .models import Hero, LoreGroup, LoreUndergroup, Player, Lore, LoreType
+from .models import Hero, LoreGroup, LoreUndergroup, Lore, LoreType, Quote
 
 class HeroSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Hero
         fields = (
@@ -12,16 +12,9 @@ class HeroSerializer(serializers.ModelSerializer):
             "lvl",
             "info",
             "player",
-        )
-
-class PlayerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Player
-        fields = (
-            "id",
-            "name",
-            "password"
-        )
+            "description",
+            "image"
+            )
 
 class LoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,4 +58,13 @@ class LoreUndergroupSerializer(serializers.ModelSerializer):
             "description",
             "group",
             "image"
+        )
+
+class QuoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quote
+        fields = (
+            "id",
+            "quote",
+            "quoter"
         )

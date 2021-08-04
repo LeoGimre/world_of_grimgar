@@ -4,19 +4,8 @@ from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import logging
-import urllib.request
 import os
 
-
-@csrf_exempt
-def check_url(request):
-    try:
-        url_status = urllib.request.urlopen(request.body.decode("utf-8") ).getcode()
-    except:
-        return HttpResponse(":( Url is Not Working")
-    if (url_status == 200):
-        return HttpResponse("Yey! URL is Working")
-    return HttpResponse(":( Url is Not Working")
 
 class FrontendAppView(View):
     """

@@ -9,6 +9,10 @@ urlpatterns = [
     path("player", index),
     path("item", index),
     path("new", index),
+    path("login", index),
+    path("register", index),
+    path("account", index),
+    path("account/new_hero", index),
 
     path("knowledge/<int:id>", index),
     path("knowledge/group/<int:id>", index),
@@ -21,6 +25,12 @@ urlpatterns = [
 
     path("log/<int:id>", index),
 
+    path("player/<int:id>", index),
+
     path("item/<int:id>", index),
     path("item/group/<int:id>", index),
+
+    path("new/lore", index),
+    path("new/group", index),
+    path("new/undergroup", index),
 ]

@@ -1,20 +1,18 @@
 from typing import Counter
 from django import urls
-import django
 from django.conf.urls import url
 from rest_framework import generics
-from .serializers import HeroSerializer, LoreSerializer, LoreTypeSerializer, PlayerSerializer, LoreUndergroupSerializer, LoreGroupSerializer
-from .models import Lore, LoreGroup, LoreType, Hero, LoreUndergroup, Player
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .serializers import HeroSerializer, LoreSerializer, LoreTypeSerializer, LoreUndergroupSerializer, LoreGroupSerializer, QuoteSerializer
+from .models import Lore, LoreGroup, LoreType, Hero, LoreUndergroup, Quote
+
 
 class HeroListCreate(generics.ListCreateAPIView):
     queryset = Hero.objects.all()
     serializer_class = HeroSerializer
 
-class PlayerListCreate(generics.ListCreateAPIView):
-    queryset = Player.objects.all()
-    serializer_class = PlayerSerializer
-
 class LoreListCreate(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Lore.objects.all()
     serializer_class = LoreSerializer
 
@@ -35,6 +33,10 @@ class LoreUndergroupListCreate(generics.ListCreateAPIView):
 class LoreListSingular(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lore.objects.all()
     serializer_class = LoreSerializer
+
+class HeroListSingular(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Hero.objects.all()
+    serializer_class = HeroSerializer
 
 
 class LoreKnowledgeList(generics.ListAPIView):
@@ -103,4 +105,6 @@ class LoreFromUndergroup(generics.ListAPIView):
     def get_queryset(self):
         return Lore.objects.filter(undergroup = self.kwargs['undergroup'])
     
-    
+class QuoteListCreate(generics.ListCreateAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer

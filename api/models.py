@@ -1,3 +1,4 @@
+from accounts.models import User
 from django.db import models
 
 class LoreType(models.Model):
@@ -37,7 +38,7 @@ class Lore(models.Model):
     name = models.CharField(max_length=50)
 
     group = models.ForeignKey(
-        LoreGroup, null=False, blank=False, on_delete=models.CASCADE
+        LoreGroup, null=True, blank=True, on_delete=models.CASCADE
     )
     undergroup = models.ForeignKey(
         LoreUndergroup, null=True, blank=True, on_delete=models.CASCADE
@@ -54,22 +55,21 @@ class Lore(models.Model):
     def __str__(self):
         return self.name
 
-class Player(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
 class Hero(models.Model):
     name = models.CharField(max_length=50)
     fantasyclass = models.CharField(max_length=50)
     lvl = models.IntegerField()
     info = models.TextField(max_length=10000)
     player = models.ForeignKey(
-        Player, null=True, blank=True, on_delete=models.SET_NULL
+        User, on_delete=models.CASCADE
     )
     description = models.TextField(max_length=10000)
+    image = models.ImageField(upload_to="frontend/static/images/hero/", null=True)
+
 
     def __str__(self):
         return self.name
+
+class Quote(models.Model):
+    quote = models.CharField(max_length=50)
+    quoter = models.CharField(max_length=10)

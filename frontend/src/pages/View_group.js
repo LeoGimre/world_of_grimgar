@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./style.css";
 import { useParams} from "react-router-dom";
-import Mainpage from "../components/Mainpage";
 import Logo from "../components/Logo";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +19,20 @@ export default function Pieces_of_lore() {
         .then((data) => set_loregroup_state({ loregroups: data })),
     []
   );
+
+  const [quote_state, set_quote_state] = React.useState({
+    quote: [],
+  });
+
+  useEffect(
+    () =>
+      fetch("/api/quote/")
+        .then((response) => response.json())
+        .then((data) => set_quote_state({ quote: data })),
+    []
+  );
+
+  const random = Math.floor(Math.random() * quote_state.quote.length) + 1;
 
   return (
     <div>
@@ -56,12 +69,14 @@ export default function Pieces_of_lore() {
 
               <div id="sidebar">
                 <ul id="entire_list">
-                  <li>
-                    <h2>Quote</h2>
-                    <p id="quote_text">
-                      Let your mind wander into the endless depth of knowledge.
-                    </p>
-                  </li>
+                  {
+                  quote_state.quote.slice(random-1, random).map((quote) => (
+                    <li id="quote">
+                      <h2>Quote</h2>
+                      <p id="quote_text">"{quote.quote}"</p>
+                      <p id="quoter_text">- {quote.quoter}</p>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div style={{clear:'both'}}></div>

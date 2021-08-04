@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Logo from "../components/Logo";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Backspace from './backspace.png' // relative path to image 
 
 export default function View_lores_group() {
   var url = window.location.href;
@@ -39,6 +40,20 @@ export default function View_lores_group() {
     []
   );
 
+  const [quote_state, set_quote_state] = React.useState({
+    quote: [],
+  });
+
+  useEffect(
+    () =>
+      fetch("/api/quote/")
+        .then((response) => response.json())
+        .then((data) => set_quote_state({ quote: data })),
+    []
+  );
+
+  const random = Math.floor(Math.random() * quote_state.quote.length) + 1;
+
   return (
     <div>
       <Logo />
@@ -50,10 +65,8 @@ export default function View_lores_group() {
               <div id="content">
               <div id="post">
                   <h2 class="title" id="knowledge_title">
-                    Hello
-                    <a class="back_button" onClick={goToPreviousPath}>
-                      Back
-                    </a>
+                    Group Name
+                    <a class="back_button" onClick={goToPreviousPath} ><img src={Backspace} style={{height: "20px"}}/></a>
                   </h2>
                 </div>
                 <div id="smallPosts">
@@ -70,12 +83,13 @@ export default function View_lores_group() {
 
               <div id="sidebar">
                 <ul id="entire_list">
-                  <li>
-                    <h2>Quote</h2>
-                    <p id="quote_text">
-                      Let your mind wander into the endless depth of knowledge.
-                    </p>
-                  </li>
+                  {quote_state.quote.slice(random-1, random).map((quote) => (
+                    <li id="quote">
+                      <h2>Quote</h2>
+                      <p id="quote_text">"{quote.quote}"</p>
+                      <p id="quoter_text">- {quote.quoter}</p>
+                    </li>
+                  ))}
                   {loregroup_state.loregroups.map((lore) => (
                     <a href={`/${url[3]}/group/${lore.id}`}>
                       <li>
